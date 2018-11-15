@@ -20,7 +20,8 @@
         {{ field.description }}
       </small>
 
-      <form-field-messages :field-id="field.id" :type="field.type" :range="field.range" :field-state="fieldState">
+      <div v-if="badInput" class="invalid-message">{{ 'ui-form:bad_input' | i18n }}</div>
+      <form-field-messages v-show="!badInput" :field-id="field.id" :type="field.type" :range="field.range" :field-state="fieldState">
       </form-field-messages>
     </div>
   </validate>
@@ -76,7 +77,8 @@
     data () {
       return {
         // Store a local value to prevent changing the parent state
-        localValue: this.value
+        localValue: this.value,
+        badInput: false
       }
     },
     watch: {
@@ -92,10 +94,7 @@
         return input !== '' ? Number(input) : null
       },
       onKeyUp (event) {
-        // In case of numeric check validity, if invalid place back the old value
-        if (this.isNumberField && event.target.validity && event.target.validity.badInput) {
-          this.localValue = this.value
-        }
+        this.badInput = this.isNumberField && event.target.validity && event.target.validity.badInput
       }
     },
     computed: {
