@@ -14,22 +14,41 @@
         :required="isRequired"
         :disabled="field.disabled"
         :step="stepSize"
-        v-on:keyup="onKeyUp">
+        placeholder="">
 
       <small :id="field.id + '-description'" class="form-text text-muted">
         {{ field.description }}
       </small>
+      <div class="invalid-message bad-input">{{ 'ui-form:bad_input' | i18n }}</div>
 
-      <div v-if="badInput" class="invalid-message">{{ 'ui-form:bad_input' | i18n }}</div>
-      <form-field-messages v-show="!badInput" :field-id="field.id" :type="field.type" :range="field.range" :field-state="fieldState">
+      <form-field-messages class="vue-form" :field-id="field.id" :type="field.type" :range="field.range" :field-state="fieldState">
       </form-field-messages>
     </div>
   </validate>
 </template>
 
+<style>
+  .invalid-message {
+    color: red
+  }
+  /* Hide the bad-input message by default */
+  .bad-input { display: none }
+  /*
+    If input is :invalid the html validation has failed.
+    Show the bad-input message and hide the vue-form messages
+   */
+  input[type=number]:invalid ~.vue-form { display: none }
+  input[type=number]:invalid ~.bad-input { display: block }
+  /*
+    Except if the input is both invalid and empty, then you should show the vue-form messages
+   */
+  input[type=number]:placeholder-shown ~.vue-form { display: block }
+  input[type=number]:placeholder-shown ~.bad-input { display: none }
+</style>
+
 <script>
   import VueForm from 'vue-form'
-  import {FormField} from '../../flow.types'
+  import { FormField } from '../../flow.types'
   import FormFieldMessages from '../FormFieldMessages'
 
   const MIN_JAVA_INT = -2147483648
@@ -77,8 +96,7 @@
     data () {
       return {
         // Store a local value to prevent changing the parent state
-        localValue: this.value,
-        badInput: false
+        localValue: this.value
       }
     },
     watch: {
@@ -92,9 +110,6 @@
     methods: {
       toNumber (input) {
         return input !== '' ? Number(input) : null
-      },
-      onKeyUp (event) {
-        this.badInput = this.isNumberField && event.target.validity && event.target.validity.badInput
       }
     },
     computed: {
