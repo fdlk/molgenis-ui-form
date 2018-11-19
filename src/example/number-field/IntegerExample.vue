@@ -50,7 +50,11 @@
             type: 'integer',
             visible: () => true,
             required: () => false,
-            validate: () => true
+            validate: () => true,
+            range: {
+              min: 0,
+              max: 6
+            }
           }
         ],
         formState: {},
