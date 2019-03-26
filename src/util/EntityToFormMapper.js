@@ -21,8 +21,7 @@ const DEFAULTS = {
   mapperMode: 'UPDATE',
   booleanLabels: {
     trueLabel: 'True',
-    falseLabel: 'False',
-    nillLabel: 'N/A'
+    falseLabel: 'False'
   },
   showNillableBooleanOption: true,
   showNonVisibleAttributes: false
@@ -142,22 +141,12 @@ const getFieldOptions = (attribute, options: MapperSettings): ?(() => Promise<Ar
           label: option
         }
       })
-
-      if (attribute.nillable) {
-        enumOptions.push({id: 'null', value: 'null', label: 'N/A'})
-      }
-
       return (): Promise<Array<FieldOption>> => Promise.resolve(enumOptions)
     case 'BOOL':
       const boolOptions = [
         {id: 'true', value: true, label: options.booleanLabels.trueLabel},
         {id: 'false', value: false, label: options.booleanLabels.falseLabel}
       ]
-
-      if (attribute.nillable && options.showNillableBooleanOption) {
-        boolOptions.push({id: 'null', value: null, label: options.booleanLabels.nillLabel})
-      }
-
       return (): Promise<Array<FieldOption>> => Promise.resolve(boolOptions)
     default:
       return null
@@ -477,8 +466,7 @@ const buildMapperSettings = (settings?: MapperOptions): MapperSettings => {
   if (settings.booleanLabels) {
     booleanLabels = {
       trueLabel: settings.booleanLabels.trueLabel ? settings.booleanLabels.trueLabel : 'True',
-      falseLabel: settings.booleanLabels.falseLabel ? settings.booleanLabels.falseLabel : 'False',
-      nillLabel: settings.booleanLabels.nillLabel ? settings.booleanLabels.nillLabel : 'N/A'
+      falseLabel: settings.booleanLabels.falseLabel ? settings.booleanLabels.falseLabel : 'False'
     }
   }
 

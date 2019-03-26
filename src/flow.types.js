@@ -43,8 +43,7 @@ export type MapperOptions = {
   mapperMode?: MapperMode,
   booleanLabels?: {
     trueLabel: string,
-    falseLabel: string,
-    nillLabel: string
+    falseLabel: string
   },
   showNillableBooleanOption?: boolean,
   showNonVisibleAttributes?: boolean
@@ -57,8 +56,7 @@ export type MapperSettings = {
   mapperMode: MapperMode,
   booleanLabels: {
     trueLabel: string,
-    falseLabel: string,
-    nillLabel: string
+    falseLabel: string
   },
   showNillableBooleanOption: boolean,
   showNonVisibleAttributes: boolean

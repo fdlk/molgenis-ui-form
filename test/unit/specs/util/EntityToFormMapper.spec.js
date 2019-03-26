@@ -237,8 +237,7 @@ describe('Entity to state mapper', () => {
       field.options().then(response => {
         expect(response).to.deep.equal([
           {id: 'true', value: true, label: 'True'},
-          {id: 'false', value: false, label: 'False'},
-          {id: 'null', value: null, label: 'N/A'}
+          {id: 'false', value: false, label: 'False'}
         ])
         done()
       })
@@ -556,8 +555,7 @@ describe('Entity to state mapper', () => {
         expect(response).to.deep.equal([
           {id: 'enum1', value: 'enum1', label: 'enum1'},
           {id: 'enum2', value: 'enum2', label: 'enum2'},
-          {id: 'enum3', value: 'enum3', label: 'enum3'},
-          {id: 'null', value: 'null', label: 'N/A'}
+          {id: 'enum3', value: 'enum3', label: 'enum3'}
         ])
         done()
       })

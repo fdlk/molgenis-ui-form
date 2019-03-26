@@ -19,6 +19,13 @@
           :bool="localValue === true || localValue === false">
         <label :for="field.id + '-' + index" class="form-check-label">{{ option.label }}</label>
       </div>
+      <div class="form-check" v-if="!isRequired">
+        <input v-model="localValue"
+               type="radio"
+               class="form-check-input"
+               :value="null">
+        <label :for="field.id + '-null'" class="form-check-label">{{ nullOptionLabel }}</label>
+      </div>
 
       <small :id="field.id + '-description'" class="form-text text-muted">
         {{ field.description }}
@@ -73,7 +80,8 @@
       return {
         // Store a local value to prevent changing the parent state
         localValue: this.value,
-        options: []
+        options: [],
+        nullOptionLabel: this.$t ? this.$t('form_boolean_missing') : 'form_boolean_missing'
       }
     },
     watch: {
