@@ -23,7 +23,6 @@ const DEFAULTS = {
     trueLabel: 'True',
     falseLabel: 'False'
   },
-  showNillableBooleanOption: true,
   showNonVisibleAttributes: false
 }
 
@@ -453,7 +452,7 @@ const generateFormFields = (metaData: any, options: MapperSettings): Array<FormF
 /**
  * Construct mapper settings taking into account the user settings, if no settings are passed the defaults are used
  * @param settings
- * @returns {{mapperMode: *, booleanLabels: {trueLabel: string, falseLabel: string, nillLabel: string}, showNillableBooleanOption: boolean}}
+ * @returns {{mapperMode: *, booleanLabels: {trueLabel: string, falseLabel: string, nillLabel: string}}}
  */
 const buildMapperSettings = (settings?: MapperOptions): MapperSettings => {
   if (!settings) {
@@ -470,11 +469,6 @@ const buildMapperSettings = (settings?: MapperOptions): MapperSettings => {
     }
   }
 
-  let showNillableBooleanOption = DEFAULTS.showNillableBooleanOption
-  if (typeof (settings.showNillableBooleanOption) === 'boolean') {
-    showNillableBooleanOption = settings.showNillableBooleanOption
-  }
-
   let showNonVisibleAttributes = DEFAULTS.showNonVisibleAttributes
   if (typeof (settings.showNonVisibleAttributes) === 'boolean') {
     showNonVisibleAttributes = settings.showNonVisibleAttributes
@@ -483,7 +477,6 @@ const buildMapperSettings = (settings?: MapperOptions): MapperSettings => {
   return {
     mapperMode,
     booleanLabels,
-    showNillableBooleanOption,
     showNonVisibleAttributes
   }
 }

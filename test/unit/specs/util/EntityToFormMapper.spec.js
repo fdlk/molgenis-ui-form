@@ -243,34 +243,11 @@ describe('Entity to state mapper', () => {
       })
     })
 
-    it('should hide \'N/A\' option for nillable [BOOLEAN] attribute is mapperOptions.showNillableBooleanOption is set to false', done => {
-      const data = null
-      const mapperOptions = {
-        showNillableBooleanOption: false
-      }
-      const form = EntityToFormMapper.generateForm(schemas.booleanSchemaNillable, data, mapperOptions)
-      const field = form.formFields[0]
-
-      expect(field.type).to.equal('radio')
-      expect(field.id).to.equal('boolean')
-      expect(field.visible()).to.equal(true)
-      expect(typeof field.options).to.equal('function')
-
-      field.options().then(response => {
-        expect(response).to.deep.equal([
-          {id: 'true', value: true, label: 'True'},
-          {id: 'false', value: false, label: 'False'}
-        ])
-        done()
-      })
-    })
-
     it('should use the mapper options.booleanLabels when available ', done => {
       const options = {
         booleanLabels: {
           trueLabel: 'oui',
-          falseLabel: 'non',
-          nillLabel: 'inconnu'
+          falseLabel: 'non'
         }
       }
       const form = EntityToFormMapper.generateForm(schemas.booleanSchemaNillable, {}, options)
@@ -288,8 +265,7 @@ describe('Entity to state mapper', () => {
       field.options().then(response => {
         expect(response).to.deep.equal([
           {id: 'true', value: true, label: 'oui'},
-          {id: 'false', value: false, label: 'non'},
-          {id: 'null', value: null, label: 'inconnu'}
+          {id: 'false', value: false, label: 'non'}
         ])
         done()
       })

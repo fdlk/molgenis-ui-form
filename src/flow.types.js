@@ -45,7 +45,6 @@ export type MapperOptions = {
     trueLabel: string,
     falseLabel: string
   },
-  showNillableBooleanOption?: boolean,
   showNonVisibleAttributes?: boolean
 }
 
@@ -58,7 +57,6 @@ export type MapperSettings = {
     trueLabel: string,
     falseLabel: string
   },
-  showNillableBooleanOption: boolean,
   showNonVisibleAttributes: boolean
 }
 
