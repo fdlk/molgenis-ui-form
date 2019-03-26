@@ -53,6 +53,12 @@ describe('FileFieldComponent unit tests', () => {
     expect(wrapper.vm.label).to.equal('new_file.zip')
   })
 
+  it('should clear file input', () => {
+    wrapper.vm.clear()
+    expect(wrapper.vm.label).to.equal('')
+    expect(wrapper.emitted().input.slice(-1)[0]).deep.equal([null])
+  })
+
   it('should emit change when the file input is updated', () => {
     const event = {
       target: {
@@ -61,8 +67,7 @@ describe('FileFieldComponent unit tests', () => {
         ]
       }
     }
-
     wrapper.vm.handleFileChange(event)
-    expect(wrapper.emitted().input[0]).deep.equal(['file'])
+    expect(wrapper.emitted().input.slice(-1)[0]).deep.equal(['file'])
   })
 })
