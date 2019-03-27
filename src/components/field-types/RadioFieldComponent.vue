@@ -81,7 +81,7 @@
         // Store a local value to prevent changing the parent state
         localValue: this.value,
         options: [],
-        nullOptionLabel: this.$t ? this.$t('form_boolean_missing') : 'form_boolean_missing'
+        nullOptionLabel: this.$t ? this.$t('ui-form:form_boolean_missing') : 'form_boolean_missing'
       }
     },
     watch: {
