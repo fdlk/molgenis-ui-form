@@ -15,17 +15,29 @@
       >
         {{ field.label }}
       </label>
-      <div class="custom-file">
-        <label class="custom-file-label" :for="field.id">
-          {{ label }}
-        </label>
 
-        <input
-          :required="isRequired"
-          class="custom-file-input"
-          type="file"
-          @change="handleFileChange"/>
+      <div class="input-group">
+
+        <div class="custom-file">
+          <label class="custom-file-label" :for="field.id">
+            {{ label }}
+          </label>
+
+          <input
+            :required="isRequired"
+            class="custom-file-input"
+            type="file"
+            @change="handleFileChange"/>
+        </div>
+        <div class="input-group-append" v-if="!isRequired">
+          <button class="file-clear-btn btn btn-outline-secondary" type="button" title="Clear" @click="clear">
+            <i class="fa fa-times">
+              <span aria-hidden="true" class="sr-only">Clear</span>
+            </i>
+          </button>
+        </div>
       </div>
+
 
       <small :id="field.id + '-description'" class="form-text text-muted">
         {{ field.description }}
@@ -77,7 +89,21 @@
         localValue: this.value
       }
     },
+    watch: {
+      value (value) {
+        this.localValue = value
+      }
+    },
     methods: {
+      clear () {
+        this.localValue = null
+        this.$emit('input', this.localValue)
+
+        this.fieldState.$dirty = true
+        this.fieldState.$pristine = false
+        this.fieldState.$touched = true
+        this.fieldState.$untouched = false
+      },
       handleFileChange (e) {
         // Whenever the file changes, emit the 'input' event with the file data.
         this.localValue = e.target.files[0]
@@ -91,8 +117,8 @@
     },
     computed: {
       label () {
-        return typeof this.value === 'string' ? this.value
-          : this.value instanceof Blob ? this.value.name : ''
+        return typeof this.localValue === 'string' ? this.localValue
+          : this.localValue instanceof Blob ? this.localValue.name : ''
       }
     }
   }
