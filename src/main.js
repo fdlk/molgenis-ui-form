@@ -13,6 +13,8 @@ import DateTimeExample from './example/date/DateTimeExample'
 import FileExample from './example/file/FileExample'
 import AgeExample from './example/validation-functions/AgeExample'
 import RadioExample from './example/radio/RadioExample'
+import SingleSelectExample from './example/single-select/SingleSelectExample'
+import MaxLengthExample from './example/max-length/MaxLengthExample'
 import i18n from '@molgenis/molgenis-i18n-js'
 
 Vue.config.productionTip = false
@@ -62,6 +64,14 @@ const router = new Router({
     {
       path: '/radio/',
       component: RadioExample
+    },
+    {
+      path: '/single-select/',
+      component: SingleSelectExample
+    },
+    {
+      path: '/max-length/',
+      component: MaxLengthExample
     },
     {
       path: '/',
