@@ -110,14 +110,12 @@
     },
     watch: {
       localValue (value) {
-        this.fieldState.$dirty = true
-        this.fieldState.$pristine = false
-        this.fieldState.$touched = true
-        this.fieldState.$untouched = false
-        // Emit value changes to the parent (form)
-        this.$emit('input', value ? value.id : null)
-        this.$emit('focus')
-        this.$emit('blur')
+        if (value) {
+          // Emit value changes to the parent (form)
+          this.$emit('input', value.id)
+        } else {
+          this.$emit('input', null)
+        }
       }
     },
     created () {
